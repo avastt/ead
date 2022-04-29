@@ -46,6 +46,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-hateoas</artifactId>
+		<version>2.6.7</version>
+	</dependency>
+		
 	<!-- https://mvnrepository.com/artifact/net.kaczmarzyk/specification-arg-resolver -->
 	<dependency>
 		<groupId>net.kaczmarzyk</groupId>
