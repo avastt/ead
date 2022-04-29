@@ -52,6 +52,12 @@ public class UserController {
 				user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).withSelfRel());
 			}
 		}
+		/*
+		 * OUTRO MODELO PARA CRIAÇÃO DE HATEOAS MAIS ATUAL
+		 * if (!userModelPage.isEmpty()) { userModelPage.forEach(user ->
+		 * user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).
+		 * withSelfRel())); }
+		 */
 		return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
 	}
 
