@@ -1,4 +1,4 @@
-package com.ead.authuser.dtos;
+package com.ead.course.dtos;
 
 import java.util.UUID;
 

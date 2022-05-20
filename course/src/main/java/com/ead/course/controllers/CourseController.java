@@ -1,4 +1,4 @@
-package com.ead.authuser.controllers;
+package com.ead.course.controllers;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ead.authuser.dtos.CourseDto;
-import com.ead.authuser.services.CourseService;
+import com.ead.course.dtos.CourseDto;
 import com.ead.course.models.CourseModel;
+import com.ead.course.services.CourseService;
 
 @RestController
 @RequestMapping("/courses")
