@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@moduleId")
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -53,5 +54,6 @@ public class ModuleModel implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "module", fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
-	private Set<LessonModel> lessons;
+	private Set<LessonModel> lessons;	
+	
 }

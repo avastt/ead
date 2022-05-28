@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@courseId")
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
