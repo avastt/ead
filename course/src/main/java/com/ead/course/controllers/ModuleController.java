@@ -31,6 +31,9 @@ import com.ead.course.services.CourseService;
 import com.ead.course.services.ModuleService;
 import com.ead.course.specifications.SpecificationTemplate;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ModuleController {
@@ -46,6 +49,7 @@ public class ModuleController {
 			@PathVariable(value = "courseId") UUID courseId,
 			@RequestBody @Valid ModuleDto moduleDto) {
 
+		log.debug("POST saveModule moduleDto received {} ", moduleDto.toString());
 		Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
 
 		if (!courseModelOptional.isPresent()) {
@@ -57,7 +61,8 @@ public class ModuleController {
 		BeanUtils.copyProperties(moduleDto, moduleModel);
 		moduleModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
 		moduleModel.setCourse(courseModelOptional.get());
-		
+        log.debug("POST saveModule moduleId saved {} ", moduleModel.getModuleId());
+        log.info("Module saved successfully moduleId {} ", moduleModel.getModuleId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(moduleService.save(moduleModel));
 	}
 	
@@ -66,6 +71,7 @@ public class ModuleController {
 			@PathVariable(value = "courseId") UUID courseId,
 			@PathVariable(value = "moduleId") UUID moduleId) {
 
+        log.debug("DELETE deleteModule moduleId received {} ", moduleId);
 		Optional<ModuleModel> moduleModelOptional = moduleService.findModuleIntoCourse(courseId, moduleId);
 
 		if (!moduleModelOptional.isPresent()) {
@@ -73,7 +79,8 @@ public class ModuleController {
 		}
 
 		moduleService.delete(moduleModelOptional.get());
-
+        log.debug("DELETE deleteModule moduleId deleted {} ", moduleId);
+        log.info("Module deleted successfully moduleId {} ", moduleId);
 		return ResponseEntity.status(HttpStatus.OK).body("Module Deleted Successfully");
 	}
 	
@@ -83,6 +90,7 @@ public class ModuleController {
 			@PathVariable(value = "moduleId") UUID moduleId,
 			@RequestBody @Valid ModuleDto moduleDto) {
 
+        log.debug("PUT updateModule moduleDto received {} ", moduleDto.toString());
 		Optional<ModuleModel> moduleModelOptional = moduleService.findModuleIntoCourse(courseId, moduleId);
 
 		if (!moduleModelOptional.isPresent()) {
@@ -93,7 +101,8 @@ public class ModuleController {
 		
 		moduleModel.setTitle(moduleDto.getTitle());
 		moduleModel.setDescription(moduleDto.getDescription());
-		
+        log.debug("PUT updateModule moduleId saved {} ", moduleModel.getModuleId());
+        log.info("Module updated successfully moduleId {} ", moduleModel.getModuleId());
 		return ResponseEntity.status(HttpStatus.OK).body(moduleService.save(moduleModel));
 	}
 	

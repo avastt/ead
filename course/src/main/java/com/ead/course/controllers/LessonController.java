@@ -31,6 +31,9 @@ import com.ead.course.services.LessonService;
 import com.ead.course.services.ModuleService;
 import com.ead.course.specifications.SpecificationTemplate;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class LessonController {
@@ -45,7 +48,8 @@ public class LessonController {
 	public ResponseEntity<Object> saveLesson(
 			@PathVariable(value = "moduleId") UUID moduleId,
 			@RequestBody @Valid LessonDto lessonDto) {
-
+		
+        log.debug("POST saveLesson lessonDto received {} ", lessonDto.toString());
 		Optional<ModuleModel> moduleModelOptional = moduleService.findById(moduleId);
 
 		if (!moduleModelOptional.isPresent()) {
@@ -56,7 +60,8 @@ public class LessonController {
 		BeanUtils.copyProperties(lessonDto, lessonModel);
 		lessonModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
 		lessonModel.setModule(moduleModelOptional.get());
-		
+        log.debug("POST saveLesson lessonId saved {} ", lessonModel.getLessonId());
+        log.info("Lesson saved successfully lessonId {} ", lessonModel.getLessonId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.save(lessonModel));
 	}
 	
@@ -64,7 +69,8 @@ public class LessonController {
 	public ResponseEntity<Object> deleteLesson(
 			@PathVariable(value = "moduleId") UUID moduleId,
 			@PathVariable(value = "lessonId") UUID lessonId) {
-
+		
+        log.debug("DELETE deleteLesson lessonId received {} ", lessonId);
 		Optional<LessonModel> lessonModelOptional = lessonService.findLessonIntoModule(moduleId, lessonId);
 
 		if (!lessonModelOptional.isPresent()) {
@@ -72,7 +78,8 @@ public class LessonController {
 		}
 
 		lessonService.delete(lessonModelOptional.get());
-
+        log.debug("DELETE deleteLesson lessonId deleted {} ", lessonId);
+        log.info("Lesson deleted successfully lessonId {} ", lessonId);
 		return ResponseEntity.status(HttpStatus.OK).body("Lesson Deleted Successfully");
 	}
 	
@@ -81,7 +88,8 @@ public class LessonController {
 			@PathVariable(value = "moduleId") UUID moduleId,
 			@PathVariable(value = "lessonId") UUID lessonId,
 			@RequestBody @Valid LessonDto lessonDto) {
-
+		
+        log.debug("PUT updateLesson lessonDto received {} ", lessonDto.toString());
 		Optional<LessonModel> lessonModelOptional = lessonService.findLessonIntoModule(moduleId, lessonId);
 
 		if (!lessonModelOptional.isPresent()) {
@@ -92,7 +100,8 @@ public class LessonController {
 		lessonModel.setTitle(lessonDto.getTitle());
 		lessonModel.setDescription(lessonDto.getDescription());
 		lessonModel.setVideoUrl(lessonDto.getVideoUrl());
-		
+        log.debug("PUT updateLesson lessonId saved {} ", lessonModel.getLessonId());
+        log.info("Lesson updated successfully lessonId {} ", lessonModel.getLessonId());
 		return ResponseEntity.status(HttpStatus.OK).body(lessonService.save(lessonModel));
 	}
 	
