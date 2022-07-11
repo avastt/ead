@@ -1,4 +1,4 @@
-package com.ead.authuser.dto;
+package com.ead.course.dtos;
 
 import java.util.List;
 
